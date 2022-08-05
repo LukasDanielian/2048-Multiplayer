@@ -131,7 +131,7 @@ public void checkWin()
 {
   for (int i = 0; i < tiles.size(); i++)
   {
-    if (tiles.get(i).num == 2048)
+    if (tiles.get(i).num == winAmount)
     {
       win = true;
     }

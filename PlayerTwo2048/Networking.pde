@@ -10,7 +10,6 @@ public void recieveData()
   if (client != null && client.available() > 0)
   {
     String recieved = client.readString();
-
     //UPDATES INFO BASED ON DATA RECIEVED
     if (recieved != null)
     {
@@ -32,16 +31,27 @@ public void recieveData()
         }
       }
       
+      //STARTS GAME
+      if(args[0].equals("Start"))
+      {
+        winAmount = int(args[1]);
+        start = true;
+        gameOver = false;
+        win = false;
+      }
+      
       //THIS PLAYER WIN
       if(args[0].equals("YouWin"))
       {
         win = true;
+        setup();
       }
       
       //THIS PLAYER LOST
       if(args[0].equals("YouLose"))
       {
         gameOver = true;
+        setup();
       }
     }
   }

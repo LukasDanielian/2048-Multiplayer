@@ -38,12 +38,14 @@ public void recieveData()
       if(args[0].equals("YouWin"))
       {
         win = true;
+        setup();
       }
       
       //THIS PLAYER LOST
       if(args[0].equals("YouLose"))
       {
         gameOver = true;
+        setup();
       }
     }
   }

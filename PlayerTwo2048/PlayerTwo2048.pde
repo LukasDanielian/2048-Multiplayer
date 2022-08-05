@@ -7,7 +7,9 @@ public ArrayList<Tile> otherPlayerTiles;
 public Client client = new Client(this, "127.0.0.1", 1234);//TYPE PLAYER ONE IP ADDRESS
 public boolean gameOver;
 public boolean win;
+public boolean start;
 public boolean sendStatus;
+public int winAmount;
 
 public void setup()
 {
@@ -21,31 +23,42 @@ public void setup()
   otherPlayerTiles = new ArrayList<Tile>();
   gameOver = false;
   win = false;
+  start = false;
   sendStatus = true;
+  winAmount = 0;
 }
 
 //RENDERS EVERYTHING
 public void draw()
 {
   background(100);
-
-  //MAIN GAME
-  if (!gameOver && !win)
+  recieveData();
+  //SENDS BOARD DATA
+  String toSend = "";
+  for (int i = 0; i < tiles.size(); i++)
   {
-    recieveData();
+    toSend += tiles.get(i).toString() + "/";
+  }
+  sendData("Board", new String[]{toSend});
+
+  //STARTING SCREEN
+  if (!start)
+  {
+    textSize(75);
+    fill(255);
+    text("Waiting For Player One To Select Win Amount:", width/2, height/2);
+  }
+  //MAIN GAME
+  else if (!gameOver && !win && start)
+  {
     makeBoard();
     renderTiles();
     checkLoss();
     checkWin();
     renderOtherPlayerBoard();
-    
-    //SENDS BOARD DATA
-    String toSend = "";
-    for (int i = 0; i < tiles.size(); i++)
-    {
-      toSend += tiles.get(i).toString() + "/";
-    }
-    sendData("Board", new String[]{toSend});
+    textSize(25);
+    fill(0);
+    text("Win Amount: " + winAmount, width/2, height * .05);
   }
   //GAME OVER SCREEN
   else
@@ -78,40 +91,4 @@ public void draw()
       setup();
     }
   }
-}
-
-//MOVES TILES IN CORRECT DIRECTION AND ADDS NEW TILE
-public void keyPressed()
-{
-  int leftRight = 0;
-  int upDown = 0;
-
-  //UP
-  if (keyCode == UP)
-  {
-    upDown = -1;
-  }
-  //DOWN
-  else if (keyCode == DOWN)
-  {
-    upDown = 1;
-  }
-  //LEFT
-  else if (keyCode == LEFT)
-  {
-    leftRight = -1;
-  }
-  //RIGHT
-  else if (keyCode == RIGHT)
-  {
-    leftRight = 1;
-  }
-  //WRONG KEY
-  else
-  {
-    return;
-  }
-
-  move(upDown, leftRight);
-  addTile();
 }

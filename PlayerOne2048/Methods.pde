@@ -127,13 +127,36 @@ public void checkLoss()
   }
 }
 
+//CHECKS IF GAME IS WON
 public void checkWin()
 {
   for (int i = 0; i < tiles.size(); i++)
   {
-    if (tiles.get(i).num == 2048)
+    if (tiles.get(i).num == winAmount)
     {
       win = true;
     }
+  }
+}
+
+//MAKES BUTTONS
+void makeButtons()
+{
+  int[] nums = {256,512,1024,2048};
+  for(int i = 0; i < 4; i++)
+  {
+    buttons.add(new Button(width/4 * i, height/2,nums[i]));
+  }
+}
+
+//RENDERS ALL BUTTONS
+void renderButtons()
+{
+  fill(255);
+  textSize(75);
+  text("Select Winning Amount:", width/2,height * .25);
+  for(int i = 0; i < buttons.size(); i++)
+  {
+    buttons.get(i).render();
   }
 }
