@@ -48,6 +48,8 @@ public void draw()
   {
     sendData("Start", new String[]{"" + winAmount});
   }
+  sendData("Sync", new String[]{""});
+  
   //START SCREEN
   if (!start)
   {
