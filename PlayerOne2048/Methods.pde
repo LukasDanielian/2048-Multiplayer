@@ -4,7 +4,7 @@ void makeBoard()
   int[] cols = {#FF0000,#0000FF};
   for (int i = 0; i < 901; i+= 900)
   {
-    for (int row = 0; row < height; row += 200)
+    for (int row = 0; row < 800; row += 200)
     {
       for (int col = i; col < i + 800; col+= 200)
       {

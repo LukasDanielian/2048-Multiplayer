@@ -15,7 +15,8 @@ public int winAmount;
 public void setup()
 {
   //SETTINGS
-  size(1700, 800);
+  //size(1700, 800);
+  fullScreen();
   textAlign(CENTER, CENTER);
   frameRate(144);
 
